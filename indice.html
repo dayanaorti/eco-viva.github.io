@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ECO-VIVA</title>
+
+  <link rel="stylesheet" href="estilo.css">
+
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+<div class="juego" id="juego">
+  <header class="encabezado">
+    <div class="logo">
+      <span class="logo-icono">🌿</span>
+      <div>
+        <h1>ECO-VIVA</h1>
+        <p>Un mundo que crece contigo</p>
+      </div>
+    </div>
+    <div class="frase-header">La naturaleza cobra vida con tu imaginación</div>
+  </header>
+
+  <main class="contenido">
+    <section class="zona-principal">
+      <div class="titulo-paisaje">
+        <span class="titulo-ambiente">🌦️ Cambia el ambiente</span>
+        <div class="climas">
+          <button class="clima-btn activo" data-clima="dia" type="button">
+            ☀️ <span>Día</span>
+          </button>
+          <button class="clima-btn" data-clima="noche" type="button">
+            🌙 <span>Noche</span>
+          </button>
+          <button class="clima-btn" data-clima="lluvia" type="button">
+            🌧️ <span>Lluvia</span>
+          </button>
+        </div>
+        <p class="ayuda-paisaje">
+          ✨ Selecciona un elemento y después haz clic en el ecosistema para ubicarlo.
+        </p>
+        <span class="indicador" id="indicadorClima">☀️ Día soleado</span>
+      </div>
+
+      <section class="ecosistema modo-dia" id="ecosistema" aria-label="Paisaje interactivo">
+        <div class="cielo"></div>
+        <div class="estrellas" id="estrellas"></div>
+
+        <div class="sol" id="sol">☀️</div>
+        <div class="luna" id="luna">🌙</div>
+        <div class="nubes">
+          <span class="nube nube1">☁️</span>
+          <span class="nube nube2">☁️</span>
+          <span class="nube nube3">☁️</span>
+        </div>
+
+        <div class="montana montana-atras"></div>
+        <div class="montana montana-frente"></div>
+        <div class="montana-nieve">❄️</div>
+        <div class="colinas colina-atras"></div>
+        <div class="colinas colina-frente"></div>
+
+        <div class="arbol arbol1">🌲</div>
+        <div class="arbol arbol2">🌳</div>
+        <div class="arbol arbol3">🌲</div>
+        <div class="arbol arbol4">🌳</div>
+        <div class="arbol arbol5">🌴</div>
+
+        <div class="flor flor1">🌼</div>
+        <div class="flor flor2">🌻</div>
+        <div class="flor flor3">🌹</div>
+
+        <div class="agua">
+          <span class="onda onda1"></span>
+          <span class="onda onda2"></span>
+          <span class="pez pez1">🐡</span>
+          <span class="pez pez2">🐠</span>
+          <span class="pez pez3">🐙</span>
+        </div>
+
+        <div class="mariposa mariposa1">🦋</div>
+        <div class="mariposa mariposa2">🦋</div>
+        <div class="brillo-brisa">✦</div>
+
+
+        <div id="elementosCreados"></div>
+        <div id="efectos"></div>
+        <div id="capaLluvia"></div>
+
+        <div class="mensaje-central" id="mensajeCentral">
+          <span>🌱</span>
+          <h2>Todo comienza con una pequeña acción</h2>
+          <p>Elige un ser vivo o elemento mágico y haz clic en el paisaje para darle vida.</p>
+        </div>
+
+        <div class="destello" id="destello"></div>
+      </section>
+
+      <div class="mensaje-clima" id="mensajeClima" aria-live="polite">
+        ☀️ El sol despierta los colores y las aves llenan el aire de vida.
+      </div>
+
+      <div class="reflexion">
+        <span class="reflexion-icono">🌎</span>
+        <div>
+          <strong>Objetivo de ECO-VIVA</strong>
+          <p>
+            Esta obra de arte interactiva explora la relación entre las personas,
+            la naturaleza y la tecnología. Al crear organismos, escuchar sonidos
+            y cambiar el ambiente, invita a despertar la imaginación, valorar la
+            biodiversidad y reflexionar sobre el cuidado de los seres vivos.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel">
+      <div class="panel-titulo">
+        <span>🌼</span>
+        <div>
+          <h2>Da vida al paisaje</h2>
+          <p>Elige qué quieres crear</p>
+        </div>
+      </div>
+
+      <div class="opciones">
+        <button class="opcion seleccionada" data-tipo="planta" type="button">
+          <span class="opcion-emoji">🌱</span>
+          <span><strong>Plantas</strong><small>Haz crecer la vida</small></span>
+        </button>
+
+        <button class="opcion" data-tipo="flor" type="button">
+          <span class="opcion-emoji">🌸</span>
+          <span><strong>Flores</strong><small>Llena el mundo de color</small></span>
+        </button>
+
+        <button class="opcion" data-tipo="animal" type="button">
+          <span class="opcion-emoji">🦋</span>
+          <span><strong>Animales</strong><small>Invita vida al paisaje</small></span>
+        </button>
+
+        <button class="opcion" data-tipo="magia" type="button">
+          <span class="opcion-emoji">✨</span>
+          <span><strong>Magia</strong><small>Descubre lo extraordinario</small></span>
+        </button>
+      </div>
+
+      <div class="separador"></div>
+
+      <div class="controles-sonido">
+        <div class="sonido-icono" id="iconoSonido">🔈</div>
+        <div class="sonido-texto">
+          <strong>Sonidos de la naturaleza</strong>
+          <p id="estadoSonido"></p>
+        </div>
+        <button id="sonidoBtn" class="boton-sonido" type="button">
+          Activar
+        </button>
+      </div>
+
+      <div class="mensaje-panel" id="mensajePanel" aria-live="polite">
+        🌱 ¡Vamos a crear un lugar lleno de vida!
+      </div>
+
+      <button id="reiniciar" class="reiniciar" type="button">
+        ↻ Reiniciar ecosistema
+      </button>
+    </aside>
+  </main>
+
+  <footer class="pie">
+    <span>🌎 ECO-VIVA</span>
+    <span>La vida florece cuando la cuidamos 🌱</span>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,1273 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --verde: #75e4b0;
+  --verde-oscuro: #103b37;
+  --texto: #effff8;
+  --panel: rgba(14, 39, 48, 0.94);
+}
+
+body {
+  margin: 0;
+  padding: 22px;
+  min-height: 100vh;
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  color: var(--texto);
+  background:
+    radial-gradient(ellipse at top left, #205b59 0, transparent 45%),
+    linear-gradient(140deg, #091b2b, #102f3b 55%, #142c35);
+}
+
+button {
+  font: inherit;
+}
+
+.juego {
+  width: min(1450px, 100%);
+  margin: 0 auto;
+}
+
+.encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.logo-icono {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #9affc5, #3eaeac);
+  font-size: 32px;
+  box-shadow: 0 0 28px #54dca644;
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: clamp(27px, 4vw, 38px);
+  letter-spacing: 5px;
+  color: #a1ffd0;
+}
+
+.logo p {
+  margin: 5px 0 0;
+  color: #d0e9e0;
+  letter-spacing: 1px;
+}
+
+.frase-header {
+  color: #bdeedb;
+  font-size: 14px;
+}
+
+.contenido {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 290px;
+  align-items: start;
+  gap: 22px;
+}
+
+.zona-principal,
+.panel {
+  min-width: 0;
+}
+
+.titulo-paisaje {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  color: #d7f6e9;
+  font-size: 14px;
+}
+
+.indicador {
+  padding: 7px 12px;
+  border: 1px solid #8be9c766;
+  border-radius: 30px;
+  background: #173e3c;
+}
+
+.ecosistema {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 340px;
+  overflow: hidden;
+  isolation: isolate;
+  border: 2px solid #9cefc66e;
+  border-radius: 24px;
+  background: #81d6ed;
+  box-shadow: 0 18px 50px #0004, 0 0 35px #72e9bb19;
+  cursor: crosshair;
+  transition: background 1.2s, border-color 1.2s;
+}
+
+.cielo {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  background: linear-gradient(#72d5f3 0%, #b8eff3 52%, #f4f2c6 100%);
+  transition: background 1.2s;
+}
+
+.sol,
+.luna {
+  position: absolute;
+  top: 8%;
+  right: 13%;
+  font-size: clamp(40px, 6vw, 75px);
+  filter: drop-shadow(0 0 18px #fff4a8);
+  animation: flotar 5s ease-in-out infinite;
+  transition: opacity 1s, transform 1s;
+  z-index: 1;
+}
+
+.luna {
+  opacity: 0;
+  transform: translateY(20px);
+  filter: drop-shadow(0 0 20px #c4d8ff);
+}
+
+.nubes {
+  position: absolute;
+  inset: 5% 0 auto;
+  height: 25%;
+  pointer-events: none;
+}
+
+.nube {
+  position: absolute;
+  font-size: clamp(28px, 4vw, 52px);
+  opacity: 0.82;
+  animation: moverNube 27s linear infinite;
+}
+
+.nube1 {
+  left: 8%;
+  top: 10%;
+}
+
+.nube2 {
+  left: 48%;
+  top: 30%;
+  animation-duration: 34s;
+}
+
+.nube3 {
+  left: 73%;
+  top: 5%;
+  animation-duration: 39s;
+}
+
+.montana {
+  position: absolute;
+  bottom: 30%;
+  width: 60%;
+  height: 46%;
+  clip-path: polygon(0 100%, 43% 7%, 58% 34%, 71% 0, 100% 100%);
+  transition: filter 1s;
+}
+
+.montana-atras {
+  left: -6%;
+  background: linear-gradient(135deg, #8ac7d1, #648fa9);
+  opacity: 0.85;
+}
+
+.montana-frente {
+  right: -8%;
+  width: 66%;
+  height: 38%;
+  background: linear-gradient(135deg, #91b8c7, #5c7f9c);
+  opacity: 0.9;
+}
+
+.montana-nieve {
+  position: absolute;
+  top: 29%;
+  left: 21%;
+  font-size: clamp(14px, 2vw, 27px);
+  opacity: 0.7;
+}
+
+.colinas {
+  position: absolute;
+  bottom: 14%;
+  left: -10%;
+  width: 120%;
+  height: 42%;
+  border-radius: 50% 50% 0 0;
+}
+
+.colina-atras {
+  background: linear-gradient(160deg, #65bd7b, #329568);
+  transform: rotate(-5deg);
+  bottom: 12%;
+}
+
+.colina-frente {
+  background: linear-gradient(170deg, #46b778, #176e54);
+  transform: rotate(5deg);
+  bottom: -8%;
+  left: -5%;
+}
+
+.arbol {
+  position: absolute;
+  bottom: 21%;
+  z-index: 2;
+  font-size: clamp(35px, 5vw, 62px);
+  filter: drop-shadow(0 5px 4px #173e2b55);
+  animation: balanceo 4s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.arbol1 { left: 5%; }
+.arbol2 { left: 29%; bottom: 30%; animation-delay: -1s; }
+.arbol3 { right:35%; bottom: 40%; animation-delay: -2s; }
+.arbol4 { right: 14%; bottom: 25%; animation-delay: -0.5s; }
+.arbol5 { right: 3%; bottom: 40%; animation-delay: -0.5s; }
+
+.flor {
+  position: absolute;
+  bottom: 15%;
+  z-index: 2;
+  font-size: clamp(15px, 5vw, 25px);
+  filter: drop-shadow(0 5px 4px #173e2b55);
+  animation: balanceo 4s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.flor1 { right: 3%; bottom: 36%; animation-delay: -0.5s; }
+.flor2 { right: 40%; bottom: 30%; animation-delay: -0.5s; }
+.flor3 { right: 78%; bottom: 40%; animation-delay: -0.5s; }
+
+.agua {
+  position: absolute;
+  z-index: 3;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 15%;
+  overflow: hidden;
+  background: linear-gradient(#53c9dbd9, #1883b8);
+  border-top: 2px solid #b3f4ff;
+  transition: background 1s;
+}
+
+.onda {
+  position: absolute;
+  left: -15%;
+  width: 130%;
+  height: 40px;
+  top: -25px;
+  border-radius: 50%;
+  border-top: 4px solid #d5ffff99;
+  animation: ondaAgua 5s linear infinite;
+}
+
+.onda2 {
+  top: -14px;
+  animation-duration: 7s;
+  animation-direction: reverse;
+}
+
+.pez {
+  position: absolute;
+  top: 32%;
+  left: 15%;
+  font-size: 23px;
+  animation: nadar 12s linear infinite;
+}
+
+.pez2 {
+  top: 52%;
+  left: 60%;
+  animation-duration: 16s;
+  animation-direction: reverse;
+}
+
+.pez3 {
+  top: 20%;
+  left: 10%;
+  animation-duration: 16s;
+  animation-direction: reverse;
+}
+
+.mariposa {
+  position: absolute;
+  z-index: 5;
+  font-size: clamp(20px, 2.5vw, 31px);
+  animation: volar 10s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.mariposa1 { top: 42%; left: 22%; }
+.mariposa2 { top: 55%; left: 72%; animation-delay: -4s; }
+
+
+.brillo-brisa {
+  position: absolute;
+  top: 33%;
+  left: 48%;
+  color: #fffbd2;
+  font-size: 25px;
+  animation: destellar 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+#elementosCreados,
+#efectos,
+#capaLluvia {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+#elementosCreados { z-index: 6; }
+#efectos { z-index: 8; }
+#capaLluvia { z-index: 9; overflow: hidden; }
+
+.organismo {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  transform-origin: center bottom;
+  font-size: clamp(27px, 4vw, 47px);
+  filter: drop-shadow(0 4px 5px #123b3255);
+  animation: aparecer 0.5s ease-out both, crecer 1.3s ease-out both;
+  user-select: none;
+  pointer-events: none;
+}
+
+.organismo.tipo-flor {
+  animation: aparecer 0.5s ease-out both, balanceo 3s ease-in-out infinite;
+}
+
+.organismo.tipo-planta {
+  animation: aparecer 0.5s ease-out both, crecer 1.3s ease-out both,
+    balanceo 4s ease-in-out 1.3s infinite;
+}
+
+.organismo.tipo-animal {
+  animation: aparecer 0.5s ease-out both, animalVivo 3s ease-in-out 0.5s infinite;
+}
+
+.organismo.tipo-magia {
+  animation: aparecer 0.5s ease-out both, magiaFlotante 2.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 12px #fff2a7);
+}
+
+.particula {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-size: 17px;
+  animation: particulaSube 1.4s ease-out forwards;
+}
+
+.mensaje-central {
+  position: absolute;
+  z-index: 7;
+  top: 37%;
+  left: 50%;
+  width: min(390px, 80%);
+  padding: 18px;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  border: 1px solid #ffffff8a;
+  border-radius: 20px;
+  background: #123c3d9c;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 30px #0002;
+  pointer-events: none;
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.mensaje-central.oculto {
+  opacity: 0;
+  transform: translate(-50%, -60%);
+}
+
+.mensaje-central > span {
+  font-size: 36px;
+}
+
+.mensaje-central h2 {
+  margin: 8px 0;
+  font-size: clamp(17px, 2.5vw, 23px);
+}
+
+.mensaje-central p {
+  margin: 0;
+  color: #e3fff3;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.destello {
+  position: absolute;
+  z-index: 10;
+  inset: 0;
+  background: #e1fff0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.destello.activo {
+  animation: flash 0.6s ease-out;
+}
+
+.gota {
+  position: absolute;
+  top: -35px;
+  width: 2px;
+  height: 20px;
+  background: linear-gradient(transparent, #d8f9ff);
+  border-radius: 3px;
+  animation: caer linear infinite;
+}
+
+.ayuda-paisaje {
+  margin: 0;
+  padding: 8px 12px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #ffffff;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: fit-content;
+}
+
+.mensaje-clima {
+  padding: 20px;
+  min-height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 18px;
+  border: 1px solid #85eac36b;
+  background: linear-gradient(130deg, #17463f, #173e55);
+  color: #e3fff3;
+  font-size: clamp(15px, 2vw, 18px);
+  line-height: 1.6;
+  box-shadow: 0 8px 25px #0002;
+  transition: background 0.7s;
+  margin-top: 15px;
+}
+
+.reflexion {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-top: 15px;
+  padding: 18px;
+  border: 1px solid #ffffff1c;
+  border-radius: 17px;
+  background: #ffffff08;
+}
+
+.reflexion-icono {
+  font-size: 27px;
+}
+
+.reflexion strong {
+  color: #a8f8cf;
+}
+
+.reflexion p {
+  margin: 6px 0 0;
+  color: #d3e8e0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.panel {
+  padding: 22px;
+  border: 1px solid #ffffff22;
+  border-radius: 23px;
+  background: var(--panel);
+  box-shadow: 0 15px 40px #0003;
+  backdrop-filter: blur(10px);
+}
+
+.panel-titulo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 17px;
+}
+
+.panel-titulo > span {
+  font-size: 29px;
+}
+
+.panel-titulo h2 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.panel-titulo p {
+  margin: 5px 0 0;
+  color: #b4d7cd;
+  font-size: 12px;
+}
+
+.opciones {
+  display: grid;
+  gap: 9px;
+}
+
+.opcion {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px;
+  color: #eafff5;
+  text-align: left;
+  background: #ffffff09;
+  border: 1px solid #ffffff19;
+  border-radius: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.opcion:hover,
+.opcion.seleccionada {
+  background: #65e4ad20;
+  border-color: #75e4b0;
+  transform: translateX(2px);
+}
+
+.opcion-emoji {
+  display: grid;
+  place-items: center;
+  min-width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: #75e4b017;
+  font-size: 26px;
+}
+
+.opcion strong,
+.opcion small {
+  display: block;
+}
+
+.opcion strong { font-size: 14px; }
+
+.opcion small {
+  margin-top: 4px;
+  color: #b9d7ce;
+  font-size: 11px;
+}
+
+.separador {
+  height: 1px;
+  margin: 23px 0;
+  background: #ffffff20;
+}
+
+.climas {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.clima-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 4px;
+  color: #eafff5;
+  background: #ffffff0a;
+  border: 1px solid #ffffff1a;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.clima-btn:hover,
+.clima-btn.activo {
+  background: #77dfb52b;
+  border-color: #82edbd;
+}
+
+.clima-btn span { font-size: 12px; }
+
+.controles-sonido {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  margin-top: 21px;
+  padding: 14px 11px;
+  border-radius: 15px;
+  border: 1px solid #86e7bf40;
+  background: #75e4b012;
+}
+
+.sonido-icono {
+  font-size: 26px;
+  text-align: center;
+}
+
+.sonido-texto strong {
+  display: block;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.sonido-texto p {
+  margin: 5px 0 0;
+  color: #c5e5d9;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.boton-sonido {
+  grid-column: 1 / -1;
+  width: 100%;
+  padding: 10px;
+  color: #073c32;
+  background: linear-gradient(120deg, #91f6c3, #71d7d2);
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: filter 0.2s, transform 0.2s;
+}
+
+.boton-sonido:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.mensaje-panel {
+  min-height: 72px;
+  margin-top: 18px;
+  padding: 13px;
+  border-left: 3px solid #8ce9b9;
+  border-radius: 5px 12px 12px 5px;
+  background: #ffffff08;
+  color: #dfffee;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.reiniciar {
+  width: 100%;
+  margin-top: 15px;
+  padding: 12px;
+  color: #f4fffa;
+  background: #ffffff0b;
+  border: 1px solid #ffffff2a;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.reiniciar:hover {
+  background: #f78b8b24;
+  border-color: #ffaaaa;
+}
+
+.pie {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+  padding: 17px 3px 5px;
+  color: #b8d9cf;
+  font-size: 12px;
+}
+
+/* CAMBIO DE AMBIENTE */
+
+.ecosistema.modo-noche .cielo {
+  background: linear-gradient(#101d46, #394c7d 55%, #6d7993);
+}
+
+.ecosistema.modo-noche .sol {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.ecosistema.modo-noche .luna {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ecosistema.modo-noche .estrellas {
+  opacity: 1;
+}
+
+.estrellas {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background-image:
+    radial-gradient(circle, #fff 1px, transparent 2px),
+    radial-gradient(circle, #b9e5ff 1px, transparent 2px);
+  background-size: 53px 49px, 79px 67px;
+  background-position: 10px 12px, 30px 18px;
+  transition: opacity 1s;
+  pointer-events: none;
+}
+
+.ecosistema.modo-noche .montana-atras {
+  background: linear-gradient(135deg, #4e6c87, #394563);
+}
+
+.ecosistema.modo-noche .montana-frente {
+  background: linear-gradient(135deg, #52617b, #303f5d);
+}
+
+.ecosistema.modo-noche .colina-atras {
+  background: linear-gradient(160deg, #2f866c, #22594f);
+}
+
+.ecosistema.modo-noche .colina-frente {
+  background: linear-gradient(170deg, #245d50, #103c3a);
+}
+
+.ecosistema.modo-noche .agua {
+  background: linear-gradient(#327d9c, #123e70);
+}
+
+.ecosistema.modo-noche .nube {
+  opacity: 0.35;
+  filter: brightness(0.7);
+}
+
+.ecosistema.modo-lluvia .cielo {
+  background: linear-gradient(#526d82, #819ba8 55%, #9fb4b3);
+}
+
+.ecosistema.modo-lluvia .sol {
+  opacity: 0.15;
+}
+
+.ecosistema.modo-lluvia .nube {
+  filter: brightness(0.7);
+  opacity: 0.95;
+}
+
+.ecosistema.modo-lluvia .colina-atras {
+  background: linear-gradient(160deg, #4f9c72, #2d795c);
+}
+
+.ecosistema.modo-lluvia .colina-frente {
+  background: linear-gradient(170deg, #388b68, #175b4b);
+}
+
+.ecosistema.modo-lluvia .agua {
+  background: linear-gradient(#62b9c8, #176b9d);
+}
+
+.ecosistema.modo-lluvia .mariposa {
+  opacity: 0.45;
+}
+
+.ecosistema.modo-noche .organismo,
+.ecosistema.modo-noche .arbol {
+  filter: drop-shadow(0 0 8px #a3ffe855);
+}
+
+/* ANIMACIONES */
+
+@keyframes flotar {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+
+@keyframes moverNube {
+  0% { translate: -10px 0; }
+  50% { translate: 35px 5px; }
+  100% { translate: -10px 0; }
+}
+
+@keyframes balanceo {
+  0%, 100% { rotate: -3deg; }
+  50% { rotate: 3deg; }
+}
+
+@keyframes ondaAgua {
+  0% { transform: translateX(-5%); }
+  100% { transform: translateX(5%); }
+}
+
+@keyframes nadar {
+  0% { transform: translateX(-60px) scaleX(1); }
+  48% { transform: translateX(65vw) scaleX(1); }
+  50% { transform: translateX(65vw) scaleX(-1); }
+  98% { transform: translateX(-60px) scaleX(-1); }
+  100% { transform: translateX(-60px) scaleX(1); }
+}
+
+@keyframes volar {
+  0% { transform: translate(0, 0) rotate(-8deg); }
+  30% { transform: translate(35px, -22px) rotate(8deg); }
+  65% { transform: translate(65px, 15px) rotate(-5deg); }
+  100% { transform: translate(15px, -12px) rotate(7deg); }
+}
+
+@keyframes destellar {
+  0%, 100% { opacity: 0.2; transform: scale(0.7); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+@keyframes aparecer {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes crecer {
+  0% { scale: 0.1; }
+  70% { scale: 1.15; }
+  100% { scale: 1; }
+}
+
+@keyframes animalVivo {
+  0%, 100% { translate: 0 0; rotate: -3deg; }
+  50% { translate: 0 -9px; rotate: 3deg; }
+}
+
+@keyframes magiaFlotante {
+  0%, 100% { translate: 0 0; opacity: 0.7; }
+  50% { translate: 0 -12px; opacity: 1; }
+}
+
+@keyframes particulaSube {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(0.5); }
+  100% { opacity: 0; transform: translate(-50%, -130px) scale(1.5); }
+}
+
+@keyframes caer {
+  from { transform: translateY(-20px); }
+  to { transform: translateY(450px); }
+}
+
+@keyframes flash {
+  0% { opacity: 0.65; }
+  100% { opacity: 0; }
+}
+
+@media (max-width: 900px) {
+  body { padding: 13px; }
+
+  .contenido {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .panel-titulo,
+  .opciones,
+  .separador,
+  .climas,
+  .controles-sonido,
+  .mensaje-panel,
+  .reiniciar {
+    margin-top: 0;
+  }
+
+  .separador {
+    display: none;
+  }
+
+  .controles-sonido,
+  .mensaje-panel,
+  .reiniciar {
+    align-self: start;
+  }
+}
+
+@media (max-width: 560px) {
+  body { padding: 9px; }
+
+  .encabezado { margin-bottom: 15px; }
+  .frase-header { font-size: 12px; }
+
+  .ecosistema {
+    min-height: 330px;
+    aspect-ratio: 4 / 5;
+  }
+
+  .panel {
+    display: block;
+    padding: 17px;
+  }
+
+  .panel-titulo { margin-bottom: 15px; }
+  .opciones { margin-bottom: 22px; }
+  .separador { display: block; margin: 20px 0; }
+  .climas { margin-bottom: 17px; }
+  .controles-sonido { margin-top: 15px; }
+  .mensaje-panel { margin-top: 15px; }
+  .reiniciar { margin-top: 13px; }
+
+  .mensaje-central {
+    top: 43%;
+    width: 86%;
+    padding: 13px;
+  }
+
+  .titulo-paisaje { font-size: 12px; }
+
+  .pie {
+    font-size: 11px;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* MEJORAS VISUALES DE ECO-VIVA */
+
+/* Frase principal más grande */
+.frase-header {
+  max-width: 650px;
+  font-size: clamp(19px, 2.3vw, 29px);
+  font-weight: bold;
+  line-height: 1.35;
+  color: #b8ffd8;
+  text-shadow: 0 0 18px #64e8b855;
+}
+
+/* Barra de clima compacta, alineada a la izquierda */
+.titulo-paisaje {
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  max-width: 100%;
+  padding: 9px 11px;
+  border: 1px solid #8be9c766;
+  border-radius: 15px;
+  background: #123b37c9;
+}
+
+.titulo-ambiente {
+  color: #d7f6e9;
+  font-size: 13px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.titulo-paisaje .climas {
+  display: flex;
+  grid-template-columns: none;
+  gap: 6px;
+}
+
+.titulo-paisaje .clima-btn {
+  flex-direction: row;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 11px;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.titulo-paisaje .clima-btn span {
+  font-size: 12px;
+}
+
+.titulo-paisaje .indicador {
+  padding: 6px 9px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+/* Mantener el panel de opciones original */
+.panel {
+  display: block;
+}
+
+.panel .separador {
+  margin: 23px 0;
+}
+
+/* El botón de sonido queda sin texto explicativo debajo */
+.sonido-texto p {
+  display: none;
+}
+
+.controles-sonido {
+  grid-template-columns: 36px minmax(0, 1fr);
+  row-gap: 10px;
+}
+
+.boton-sonido {
+  grid-column: 1 / -1;
+}
+
+/* Mensaje inferior un poco más legible */
+.mensaje-clima {
+  transition: background 0.7s, border-color 0.7s;
+}
+
+/* Gotas brillantes temporales en plantas y flores */
+.organismo.gotas-brillantes::after {
+  content: "✧";
+  position: absolute;
+  top: -9px;
+  right: -7px;
+  color: #e2ffff;
+  font-size: 17px;
+  text-shadow: 0 0 8px #a4ffff, 0 0 15px #70dfff;
+  animation: brillarGota 1.2s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+/* Arcoíris temporal al terminar la lluvia */
+.arcoiris {
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  top: 12%;
+  width: min(70%, 430px);
+  height: 180px;
+  border-radius: 220px 220px 0 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    #ff7777 0 10px,
+    #ffc36e 10px 20px,
+    #fff49a 20px 30px,
+    #82e6a4 30px 40px,
+    #79dfff 40px 50px,
+    #a99bff 50px 60px,
+    #e6a7ff 60px 70px,
+    transparent 70px 80px
+  );
+  -webkit-mask: radial-gradient(
+    ellipse at bottom,
+    transparent 0 49%,
+    #000 50% 62%,
+    transparent 63%
+  );
+  mask: radial-gradient(
+    ellipse at bottom,
+    transparent 0 49%,
+    #000 50% 62%,
+    transparent 63%
+  );
+  transform: translateX(-50%);
+  opacity: 0;
+  filter: drop-shadow(0 0 8px #ffffff80);
+  pointer-events: none;
+}
+
+.arcoiris.aparecer {
+  animation: arcoirisSurge 7s ease-in-out forwards;
+}
+
+@keyframes brillarGota {
+  from {
+    opacity: 0.35;
+    scale: 0.7;
+  }
+  to {
+    opacity: 1;
+    scale: 1.25;
+  }
+}
+
+@keyframes arcoirisSurge {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 15px) scale(0.9);
+  }
+  15%, 75% {
+    opacity: 0.85;
+    transform: translate(-50%, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -10px) scale(1.04);
+  }
+}
+
+@media (max-width: 900px) {
+  .titulo-paisaje {
+    width: fit-content;
+  }
+
+  .panel {
+    display: block;
+  }
+}
+
+@media (max-width: 560px) {
+  .frase-header {
+    font-size: 19px;
+  }
+
+  .titulo-paisaje {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .titulo-paisaje .climas {
+    flex: 1 1 100%;
+  }
+
+  .titulo-paisaje .clima-btn {
+    flex: 1;
+    padding: 9px 6px;
+  }
+
+  .titulo-paisaje .indicador {
+    font-size: 10px;
+  }
+}
+/* ===== AGUA MÁS REALISTA ===== */
+
+.agua {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(
+    180deg,
+    #8de5e8 0%,
+    #42c4d4 25%,
+    #168eaf 60%,
+    #075477 100%
+  );
+}
+
+/* Reflejos suaves de luz sobre el agua */
+.agua::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    175deg,
+    transparent 0px,
+    transparent 9px,
+    rgba(255, 255, 255, 0.28) 10px,
+    rgba(255, 255, 255, 0.08) 12px,
+    transparent 16px,
+    transparent 25px
+  );
+  background-size: 100% 65px;
+  animation: reflejosAgua 6s linear infinite;
+}
+
+/* Destello de luz que cruza la superficie */
+.agua::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -45%;
+  width: 35%;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.24),
+    transparent
+  );
+  transform: skewX(-18deg);
+  animation: destelloAgua 9s ease-in-out infinite;
+}
+
+/* Ondas existentes */
+.agua .onda {
+  position: absolute;
+  z-index: 3;
+  border-color: rgba(230, 255, 255, 0.65);
+}
+
+/* Peces por encima de los reflejos */
+.agua .pez {
+  pointer-events: none;
+  z-index: 2;
+  filter: drop-shadow(0 2px 3px rgba(0, 40, 70, 0.3));
+}
+
+/* Movimiento de los reflejos */
+@keyframes reflejosAgua {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 130px;
+  }
+}
+
+/* Movimiento de la luz */
+@keyframes destelloAgua {
+  0% {
+    left: -45%;
+  }
+  70%, 100% {
+    left: 120%;
+  }
+}
+/* Ondas de lluvia sobre la superficie del agua */
+.agua .onda-lluvia {
+  position: absolute;
+  width: 6px;
+  height: 4px;
+  border: 1.5px solid rgba(235, 255, 255, 0.95);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 5;
+  animation: impactoLluvia 1s ease-out forwards;
+}
+
+@keyframes impactoLluvia {
+  0% {
+    transform: scale(1);
+    opacity: 0.95;
+  }
+  100% {
+    transform: scale(5);
+    opacity: 0;
+  }
+}
